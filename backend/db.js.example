@@ -1,0 +1,11 @@
+import {Pool} from 'pg';
+
+const pool = new Pool({
+    user: "userName",
+    password: "userPassword",
+    host: "localhost",
+    port: portNumberOnPostgres,
+    database: "PostgresTableName"
+});
+
+export default pool;
