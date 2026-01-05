@@ -65,6 +65,19 @@ function App() {
     }
   }
 
+  const toggleCompleted = async (id) => {
+    try {
+      const todo = todos.find((todo) => todo.todo_id === id);
+      await axios.put(`http://localhost:5000/todos/${id}`, {
+        description: todo.description,
+        completed: !todo.completed,
+      });
+      setTodos(todos.map((todo) => (todo.todo_id === id ? { ...todo, completed: !todo.completed } : todo)));
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   return(
      <div className="min-h-screen bg-gray-800 flex justify-center
   items-center p-4">
@@ -120,7 +133,10 @@ function App() {
                   ) : (
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-x-4">
-                        <button className={`h-6 w-6 border-2 rounded-full flex items-center justify-center ${todo.completed ? "bg-green-500 border-green-500 text-white" : "border-gray-300 hover:border-blue-400"}`}>
+                        <button
+                          onClick={() => toggleCompleted(todo.todo_id)}
+                          className={`h-6 w-6 border-2 rounded-full flex items-center justify-center ${todo.completed ? "bg-green-500 border-green-500 text-white" : "border-gray-300 hover:border-blue-400"}`}
+                        >
                           {todo.completed && <MdOutlineDone size={16} />}
                         </button>
                         <span>{todo.description}</span>
