@@ -11,6 +11,8 @@ function App() {
   const [editingTodo, setEditingTodo] = useState(null);
   const [editedText, setEditedText] = useState("");
 
+  //NOTE: axios => changes on backend; after that in try block => changes on frontend
+
   //Functionality to get all Todos
   const getTodos = async() => {
     try {
@@ -49,6 +51,15 @@ function App() {
       setEditingTodo(null);
       setEditedText("");
       getTodos();
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  const deleteTodo = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/todos/${id}`);
+      setTodos(todos.filter((todo) => todo.todo_id !== id));
     } catch (err) {
       console.error(err.message);
     }
@@ -121,7 +132,10 @@ function App() {
                           }} className="p-2 text-blue-500 hover:text-blue-700 rounded-lg hover:bg-blue-50 duration-200">
                             <MdModeEditOutline />
                           </button>
-                          <button className="p-2 text-red-500 hover:text-red-700 rounded-lg hover:bg-red-50 duration-200">
+                          <button
+                            onClick={() => deleteTodo(todo.todo_id)}
+                            className="p-2 text-red-500 hover:text-red-700 rounded-lg hover:bg-red-50 duration-200"
+                          >
                             <FaTrash />
                           </button>
                         </div>
