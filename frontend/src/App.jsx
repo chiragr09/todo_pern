@@ -132,10 +132,10 @@ function App() {
                     </div>
                   ) : (
                     <div className="flex justify-between items-center">
-                      <div className="flex items-center gap-x-4">
+                      <div className="flex items-center gap-x-4 overflow-hidden">
                         <button
                           onClick={() => toggleCompleted(todo.todo_id)}
-                          className={`h-6 w-6 border-2 rounded-full flex items-center justify-center ${todo.completed ? "bg-green-500 border-green-500 text-white" : "border-gray-300 hover:border-blue-400"}`}
+                          className={`flex-shrink-0 h-6 w-6 border-2 rounded-full flex items-center justify-center ${todo.completed ? "bg-green-500 border-green-500 text-white" : "border-gray-300 hover:border-blue-400"}`}
                         >
                           {todo.completed && <MdOutlineDone size={16} />}
                         </button>
